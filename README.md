@@ -18,11 +18,11 @@ This script searches for a specific substring in all `.txt` files stored in an S
 
 ### LocalStack Setup
 1. Ensure LocalStack is running:
-   - `docker run --rm -it -e SERVICES=s3 -p 4566:4566 localstack/localstack`
+   - `docker run -d --rm -it -e SERVICES=s3 -p 4566:4566 localstack/localstack`
 2. Create an S3 bucket in LocalStack:
    - `aws --endpoint-url=http://localhost:4566 s3 mb s3://BUCKET_NAME`
 3. (Optional) Create a test file and folder structure in the bucket:
-   - `python3 create_files_and_folders.py BUCKET_NAME --endpoint-url=http://localhost:4566`
+   - `python3 create_test_files.py BUCKET_NAME --endpoint-url=http://localhost:4566`
 4. Verify the file and folder structure:
    - `aws --endpoint-url=http://localhost:4566 s3 ls BUCKET_NAME --recursive`
 
@@ -39,13 +39,14 @@ To execute the script, use the following command:
 ### Example
 
 For LocalStack:
-- `python s3_search.py limehome-bucket "error" --endpoint-url=http://localhost:4566`
+- `python s3_search.py test-bucket "error" --endpoint-url=http://localhost:4566`
 
 For AWS (if the `S3_ENDPOINT_URL` environment variable is set):
-- `python s3_search.py limehome-bucket "error"`
+- `python s3_search.py test-bucket "error"`
+Please note that using AWS S3 instead of localstack is not tested.
 
 ### Notes
-- The `create_files_and_folders.py` script is available to create a test file structure inside an S3 bucket.
+- The `create_test_files.py` script is available to create a test file structure inside an S3 bucket.
 - The script can search any `.txt` file within the bucket and return a list of files containing the specified substring.
 
 ## Security Considerations
