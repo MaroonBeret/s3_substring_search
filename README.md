@@ -1,4 +1,4 @@
-# S3 Search Script
+# S3 Substring Search
 
 This script searches for a specific substring in all `.txt` files stored in an S3 bucket. It is designed for use with LocalStack (local S3 emulation) or a real AWS S3 bucket.
 
@@ -20,11 +20,11 @@ This script searches for a specific substring in all `.txt` files stored in an S
 1. Ensure LocalStack is running:
    - `docker run -d --rm -it -e SERVICES=s3 -p 4566:4566 localstack/localstack`
 2. Create an S3 bucket in LocalStack:
-   - `aws --endpoint-url=http://localhost:4566 s3 mb s3://BUCKET_NAME`
+   - `aws --endpoint-url=http://localhost:4566 s3 mb s3://$BUCKET_NAME`
 3. (Optional) Create a test file and folder structure in the bucket:
-   - `python3 create_test_files.py BUCKET_NAME --endpoint-url=http://localhost:4566`
+   - `python3 create_test_files.py $BUCKET_NAME --endpoint-url=http://localhost:4566`
 4. Verify the file and folder structure:
-   - `aws --endpoint-url=http://localhost:4566 s3 ls BUCKET_NAME --recursive`
+   - `aws --endpoint-url=http://localhost:4566 s3 ls $BUCKET_NAME --recursive`
 
 ## Usage
 
@@ -43,7 +43,7 @@ For LocalStack:
 
 For AWS (if the `S3_ENDPOINT_URL` environment variable is set):
 - `python s3_search.py test-bucket "error"`
-Please note that using AWS S3 instead of localstack is not tested.
+Please note that using AWS S3 instead of localstack is not tested, but should work.
 
 ### Notes
 - The `create_test_files.py` script is available to create a test file structure inside an S3 bucket.
@@ -53,3 +53,6 @@ Please note that using AWS S3 instead of localstack is not tested.
 
 - **Avoid hardcoding credentials**: Ensure that credentials are securely managed using AWS's default credential mechanisms (e.g., environment variables, AWS config files, or IAM roles).
 - **Use HTTPS endpoints**: Always use HTTPS instead of HTTP for communication with AWS services to protect data in transit from man-in-the-middle attacks. This applies to both LocalStack and AWS in production environments.
+
+## Contributing
+Found a bug? Got a cool idea? Want to make this script even better? Pull requests are more than welcome! Let’s make finding substrings in S3 buckets a delightful experience for everyone (because who doesn’t love searching through buckets of text?). Whether you’re fixing a typo or adding the next killer feature, I’d love to see your contributions. So, fork it, hack away, and let’s collaborate!
